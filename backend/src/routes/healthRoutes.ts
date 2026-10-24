@@ -15,6 +15,7 @@ healthRouter.get('/health', (req, res) => {
     status: 'ok',
     game: 'Prompt Wars: Break the Bot. Protect the Secret.',
     version: '1.0.0',
+    port: req.socket.localPort || config.port,
     uptimeSeconds: Math.floor(process.uptime()),
     database: {
       connected: dbConnected,

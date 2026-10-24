@@ -93,10 +93,12 @@ const isTestOrVerification =
   Boolean(process.argv[1] && (process.argv[1].includes('verification') || process.argv[1].includes('test')));
 
 if (!isTestOrVerification) {
-  const port = Number(process.env.PORT) || config.port || 3001;
+  // Dynamically adapt to any port provided by Render ($PORT) or local config
+  const rawPort = process.env.PORT || String(config.port) || '3001';
+  const port = parseInt(rawPort, 10) || 3001;
   const host = '0.0.0.0';
 
-  app.listen(port, host, () => {
+  const server = app.listen(port, host, () => {
     console.log(`=======================================================`);
     console.log(`🛡️  PROMPT WARS: Break the Bot. Protect the Secret.`);
     console.log(`🚀  Engine listening on: http://${host}:${port}`);
@@ -107,6 +109,10 @@ if (!isTestOrVerification) {
     connectDatabase().catch((err) => {
       console.error('[MongoDB] Connection error during boot:', err);
     });
+  });
+
+  server.on('error', (err: any) => {
+    console.error(`[Server Listen Error on port ${port}]:`, err);
   });
 }
 
