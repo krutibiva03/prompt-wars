@@ -33,13 +33,13 @@ export const ArenaPage: React.FC = () => {
   } = useGame();
 
   const currentMission: MissionDefinition =
-    missions.find((m) => m.id === currentMissionId) || missions[0];
+    missions.find((m) => m.id === currentMissionId) || missions[0] || {} as MissionDefinition;
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputPrompt, setInputPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDocId, setSelectedDocId] = useState<string | undefined>(
-    currentMission.sampleDocuments?.[0]?.id
+    currentMission?.sampleDocuments?.[0]?.id
   );
   const [showDocInspector, setShowDocInspector] = useState(false);
   const [attempts, setAttempts] = useState(0);

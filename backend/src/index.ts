@@ -11,11 +11,25 @@ import { connectDatabase } from './db.js';
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  'https://prompt-wars-phi-six.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://localhost:3001',
+];
+
 app.use(
   cors({
-    origin: '*',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-User-Id'],
+    credentials: true,
   })
 );
 
@@ -74,28 +88,26 @@ app.use((err: unknown, req: express.Request, res: express.Response, next: expres
 });
 
 // Start Server & Connect MongoDB
-const isDirectRun = Boolean(
-  process.argv[1] &&
-  (process.argv[1].endsWith('index.ts') ||
-   process.argv[1].endsWith('index.js') ||
-   process.argv[1].includes('tsx')) &&
-  !process.argv[1].includes('test') &&
-  !process.argv[1].includes('verification')
-);
+const isTestOrVerification =
+  process.env.NODE_ENV === 'test' ||
+  Boolean(process.argv[1] && (process.argv[1].includes('verification') || process.argv[1].includes('test')));
 
-if (process.env.NODE_ENV !== 'test' && isDirectRun) {
-  (async () => {
+if (!isTestOrVerification) {
+  const port = Number(process.env.PORT) || config.port || 3001;
+  const host = '0.0.0.0';
+
+  app.listen(port, host, () => {
     console.log(`=======================================================`);
     console.log(`🛡️  PROMPT WARS: Break the Bot. Protect the Secret.`);
+    console.log(`🚀  Engine listening on: http://${host}:${port}`);
+    console.log(`⚙️   Provider Mode: ${config.aiProvider}`);
     console.log(`📡  Connecting to MongoDB Database Cluster...`);
-    await connectDatabase();
-    
-    app.listen(config.port, config.host, () => {
-      console.log(`🚀  Engine listening on: http://${config.host}:${config.port}`);
-      console.log(`⚙️   Provider Mode: ${config.aiProvider}`);
-      console.log(`=======================================================`);
+    console.log(`=======================================================`);
+
+    connectDatabase().catch((err) => {
+      console.error('[MongoDB] Connection error during boot:', err);
     });
-  })();
+  });
 }
 
 export default app;

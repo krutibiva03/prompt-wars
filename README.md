@@ -313,6 +313,10 @@ npm test
 
 ## 🌐 Cloud Deployment (Render & Vercel)
 
+- 🚀 **Live Frontend (Vercel):** [https://prompt-wars-phi-six.vercel.app](https://prompt-wars-phi-six.vercel.app)
+- 📡 **Live Backend API (Render):** [https://prompt-wars-08v0.onrender.com](https://prompt-wars-08v0.onrender.com)
+- 🩺 **Backend Health Endpoint:** [https://prompt-wars-08v0.onrender.com/api/health](https://prompt-wars-08v0.onrender.com/api/health)
+
 ### 1. Backend on Render (Web Service)
 - **Repository:** Connect your GitHub repository (`prompt-wars`)
 - **Root Directory:** `backend`
@@ -322,8 +326,8 @@ npm test
 - **Environment Variables:**
   - `PORT`: `10000` (or default assigned by Render)
   - `NODE_ENV`: `production`
-  - `MONGODB_URI`: `<your MongoDB connection string>`
-  - `AI_PROVIDER`: `simulation` (or `openai`)
+  - `MONGODB_URI`: `mongodb+srv://krutibiva03_db_user:73fOOoGjU6I0038T@cluster0.duu54jj.mongodb.net/promptwars?retryWrites=true&w=majority`
+  - `AI_PROVIDER`: `simulation`
 
 ### 2. Frontend on Vercel
 - **Repository:** Connect your GitHub repository (`prompt-wars`)
@@ -332,7 +336,7 @@ npm test
 - **Build Command:** `npm run build`
 - **Output Directory:** `dist`
 - **Environment Variables:**
-  - `VITE_API_URL`: `<Your Render Backend URL, e.g. https://prompt-wars-backend.onrender.com>`
+  - `VITE_API_URL`: `https://prompt-wars-08v0.onrender.com`
 
 ---
 

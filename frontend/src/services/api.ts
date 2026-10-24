@@ -9,7 +9,11 @@ import {
   PlayerProfile,
 } from '../types';
 
-const envApiUrl = (import.meta.env.VITE_API_URL as string | undefined) || (import.meta.env.VITE_API_BASE_URL as string | undefined) || '';
+const fallbackUrl = import.meta.env.PROD ? 'https://prompt-wars-08v0.onrender.com' : '';
+const envApiUrl =
+  (import.meta.env.VITE_API_URL as string | undefined) ||
+  (import.meta.env.VITE_API_BASE_URL as string | undefined) ||
+  fallbackUrl;
 const cleanBase = envApiUrl.replace(/\/$/, '');
 const API_BASE = cleanBase ? (cleanBase.endsWith('/api') ? cleanBase : `${cleanBase}/api`) : '/api';
 

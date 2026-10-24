@@ -13,4 +13,4 @@ services:
       - key: AI_PROVIDER
         value: simulation
       - key: MONGODB_URI
-        sync: false
+        value: mongodb+srv://krutibiva03_db_user:73fOOoGjU6I0038T@cluster0.duu54jj.mongodb.net/promptwars?retryWrites=true&w=majority

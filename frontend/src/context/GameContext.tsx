@@ -20,6 +20,7 @@ import {
   getOrInitUserId,
 } from '../utils/storage';
 import { sound } from '../utils/audio';
+import { DEFAULT_MISSIONS, DEFAULT_DEFENSE_MECHANISMS } from '../utils/defaultMissions';
 import {
   fetchMissions,
   checkServerHealth,
@@ -69,8 +70,8 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<Page>('landing');
   const [currentMissionId, setCurrentMissionId] = useState<number>(1);
-  const [missions, setMissions] = useState<MissionDefinition[]>([]);
-  const [defenseMechanisms, setDefenseMechanisms] = useState<DefenseMechanismInfo[]>([]);
+  const [missions, setMissions] = useState<MissionDefinition[]>(DEFAULT_MISSIONS);
+  const [defenseMechanisms, setDefenseMechanisms] = useState<DefenseMechanismInfo[]>(DEFAULT_DEFENSE_MECHANISMS);
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile>(loadPlayerProfile);
   const [lastResult, setLastResult] = useState<LastMissionResult | null>(null);
   const [activeAchievementAlert, setActiveAchievementAlert] = useState<Achievement | null>(null);
