@@ -8,11 +8,15 @@ node_modules/
 !.env.example
 server/.env
 client/.env
+backend/.env
+frontend/.env
 
 # Build outputs
 dist/
 client/dist/
 server/dist/
+frontend/dist/
+backend/dist/
 
 # Logs
 *.log

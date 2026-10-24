@@ -1,5 +1,5 @@
 {
-  "name": "prompt-wars-client",
+  "name": "prompt-wars-frontend",
   "version": "1.0.0",
   "description": "Frontend UI for Prompt Wars AI cybersecurity game",
   "private": true,

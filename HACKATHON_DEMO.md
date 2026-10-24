@@ -10,7 +10,7 @@ This script is engineered specifically for hackathon judging sessions, live stag
 You can either click the **"3-Min Demo"** button directly in the website navbar, or follow this manual flow:
 
 ```bash
-# Start the full stack (server + client)
+# Start the full stack (backend + frontend)
 npm run dev
 # Open in browser: http://localhost:5173
 ```

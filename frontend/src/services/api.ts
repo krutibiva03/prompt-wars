@@ -9,7 +9,9 @@ import {
   PlayerProfile,
 } from '../types';
 
-const API_BASE = '/api';
+const envApiUrl = (import.meta.env.VITE_API_URL as string | undefined) || (import.meta.env.VITE_API_BASE_URL as string | undefined) || '';
+const cleanBase = envApiUrl.replace(/\/$/, '');
+const API_BASE = cleanBase ? (cleanBase.endsWith('/api') ? cleanBase : `${cleanBase}/api`) : '/api';
 
 export interface ChatApiParams {
   missionId: number;

@@ -96,7 +96,7 @@ prompt-wars/
 ├── README.md                  # Complete documentation
 ├── HACKATHON_DEMO.md          # 3-minute hackathon judge demo script
 ├── PITCH.md                   # Problem, solution, and educational impact pitch
-├── server/                    # Node.js + Express backend
+├── backend/                   # Node.js + Express backend
 │   ├── package.json
 │   ├── tsconfig.json
 │   ├── .env.example
@@ -131,7 +131,7 @@ prompt-wars/
 │           ├── integration.test.ts
 │           ├── mongo_routes.test.ts
 │           └── e2e_api_verification.ts
-└── client/                    # Vite + React 19 frontend
+└── frontend/                  # Vite + React 19 frontend
     ├── package.json
     ├── vite.config.ts         # Vite bundler & API reverse proxy
     ├── index.html
@@ -262,7 +262,7 @@ cd prompt-wars
 Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
-cp server/.env.example server/.env
+cp backend/.env.example backend/.env
 ```
 
 Ensure your MongoDB connection string is set:
@@ -274,10 +274,10 @@ AI_PROVIDER=simulation
 
 ### 3. Install Dependencies
 ```bash
-# Install root, server, and client dependencies
+# Install root, backend, and frontend dependencies
 npm install
-npm install --prefix server
-npm install --prefix client
+npm install --prefix backend
+npm install --prefix frontend
 ```
 
 ### 4. Run Development Servers
@@ -308,6 +308,31 @@ npm test
 - ✅ **Session Isolation & Anti-Spam:** Zero XP awarded on duplicate submissions.
 - ✅ **12-Vector Defense Suite:** Verification of True Positives and False Positives.
 - ✅ **MongoDB Atlas Integration:** End-to-end tests for profile, chat, and leaderboard persistence.
+
+---
+
+## 🌐 Cloud Deployment (Render & Vercel)
+
+### 1. Backend on Render (Web Service)
+- **Repository:** Connect your GitHub repository (`prompt-wars`)
+- **Root Directory:** `backend`
+- **Runtime:** `Node`
+- **Build Command:** `npm install && npm run build`
+- **Start Command:** `npm start`
+- **Environment Variables:**
+  - `PORT`: `10000` (or default assigned by Render)
+  - `NODE_ENV`: `production`
+  - `MONGODB_URI`: `<your MongoDB connection string>`
+  - `AI_PROVIDER`: `simulation` (or `openai`)
+
+### 2. Frontend on Vercel
+- **Repository:** Connect your GitHub repository (`prompt-wars`)
+- **Root Directory:** `frontend`
+- **Framework Preset:** `Vite`
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
+- **Environment Variables:**
+  - `VITE_API_URL`: `<Your Render Backend URL, e.g. https://prompt-wars-backend.onrender.com>`
 
 ---
 
